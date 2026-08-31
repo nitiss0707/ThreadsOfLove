@@ -45,14 +45,14 @@
 <section class="section-tight">
 <div class="container grid-2" style="align-items:flex-start;">
 <div class="form-card reveal">
-<form data-mock-form="contact-success">
+<form id="contact-form">
 <div class="field-row">
-<div class="field"><label>Name</label><input type="text" required></div>
-<div class="field"><label>Email</label><input type="email" required></div>
+<div class="field"><label>Name</label><input type="text" name="name" required></div>
+<div class="field"><label>Email</label><input type="email" name="email" required></div>
 </div>
 <div class="field">
 <label>I'm reaching out about</label>
-<select>
+<select name="topic">
 <option>General question</option>
 <option>Donating items</option>
 <option>Volunteering</option>
@@ -60,10 +60,11 @@
 <option>Media / press</option>
 </select>
 </div>
-<div class="field"><label>Message</label><textarea rows="5" required></textarea></div>
+<div class="field"><label>Message</label><textarea rows="5" name="message" required></textarea></div>
 <button type="submit" class="btn btn-coral btn-block">Send message</button>
 </form>
 <div id="contact-success" class="form-success">Thanks for reaching out &mdash; we'll get back to you soon.</div>
+<div id="contact-error" class="form-success" style="background:#fbdcdc;color:#a12e2e;">Something went wrong &mdash; please try again or email us directly.</div>
 </div>
 
 <div class="reveal stack">

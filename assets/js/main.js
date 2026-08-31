@@ -50,6 +50,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---- contact form (sends via /api/contact, backed by Resend) ----
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    const successEl = document.getElementById('contact-success');
+    const errorEl = document.getElementById('contact-error');
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (errorEl) errorEl.style.display = 'none';
+      if (successEl) successEl.style.display = 'none';
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: contactForm.name.value,
+            email: contactForm.email.value,
+            topic: contactForm.topic.value,
+            message: contactForm.message.value,
+          }),
+        });
+        if (!res.ok) throw new Error('Request failed');
+        contactForm.reset();
+        if (successEl) {
+          successEl.style.display = 'block';
+          setTimeout(() => { successEl.style.display = 'none'; }, 6000);
+        }
+      } catch (err) {
+        if (errorEl) errorEl.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
   // ---- mock form submissions (no backend attached yet) ----
   document.querySelectorAll('form[data-mock-form]').forEach(form => {
     form.addEventListener('submit', (e) => {
